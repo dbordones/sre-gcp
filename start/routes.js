@@ -14,8 +14,20 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
+
 const Route = use('Route')
 
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+
+Route.group(() => {
+
+  Route.get('/', 'PersonController.list')
+  Route.get('/:rut', 'PersonController.seek')
+  Route.post('/', 'PersonController.create').validator('CreatePerson')
+  Route.put('/:id','PersonController.update').validator('UpdatePerson')
+  Route.delete('/:id', 'PersonController.delete')
+
+}).prefix('people/')
+
+Route.any('*', async ({ response }) => {
+  return response.status(404).send()
 })
