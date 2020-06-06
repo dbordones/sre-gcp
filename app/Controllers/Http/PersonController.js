@@ -2,9 +2,10 @@
 
 const Person = use('App/Models/Person')
 
-const { validate, clean, format } = require('rut.js')
+const { validate, clean } = require('rut.js')
 
 class PersonController {
+
     async list({ request, response }) {
         let People = await Person.all()
         return response.status(200).json(People)
@@ -12,8 +13,11 @@ class PersonController {
 
     async seek({ params, response }){
 
-        const { rut } = params        
-        let PersonSeek = await Person.where('rut').eq(rut).first()
+        const { rut } = params 
+        
+        if (!validate(rut)) return response.status(400).send()
+        
+        let PersonSeek = await Person.where('rut').eq(clean(rut)).first()
 
         if (!PersonSeek){
             return response.status(404).send()
@@ -26,12 +30,14 @@ class PersonController {
 
         const PersonInfo = request.only(['rut', 'name', 'lastName', 'age', 'course'])
 
+        if (!validate(PersonInfo.rut)) return response.status(400).send()
+
         let PersonSeek = await Person.where('rut').eq(PersonInfo.rut).first()
 
         if (!PersonSeek) {
 
             const PersonProfile = new Person()
-            PersonProfile.rut = PersonInfo.rut
+            PersonProfile.rut = clean(PersonInfo.rut)
             PersonProfile.name = PersonInfo.name
             PersonProfile.lastName = PersonInfo.lastName
             PersonProfile.age = PersonInfo.age
@@ -58,7 +64,11 @@ class PersonController {
 
             const PersonInfo = request.only(['rut', 'name', 'lastName', 'age', 'course'])
             
-            if (PersonInfo.rut) PersonSeek.rut = PersonInfo.rut
+            if ((PersonInfo.rut) && (!validate(PersonInfo.rut))) {
+                return response.status(400).send()
+            }
+
+            if (PersonInfo.rut) PersonSeek.rut = clean(PersonInfo.rut)
             if (PersonInfo.name) PersonSeek.name = PersonInfo.name
             if (PersonInfo.lastName) PersonSeek.lastName = PersonInfo.lastName
             if (PersonInfo.age) PersonSeek.age = PersonInfo.age

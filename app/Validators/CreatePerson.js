@@ -6,7 +6,7 @@ class CreatePerson {
 
   get rules() {
     return {
-      rut: 'required|max:10',
+      rut: 'required|max:12',
       name: 'required',
       lastName: 'required',
       age: 'required|number',
