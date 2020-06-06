@@ -14,7 +14,7 @@ class UserAuth {
    */
   async handle ({ request, response }, next) {
   
-    const apikey = request.header('X-API-KEY')
+    const apikey = request.header('APIKey')
     
     if (!apikey){
       return response.status(401).send()
