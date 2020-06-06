@@ -17,14 +17,29 @@
 
 const Route = use('Route')
 
-
 Route.group(() => {
 
-  Route.get('/', 'PersonController.list')
-  Route.get('/:rut', 'PersonController.seek')
-  Route.post('/', 'PersonController.create').validator('CreatePerson')
-  Route.put('/:id','PersonController.update').validator('UpdatePerson')
-  Route.delete('/:id', 'PersonController.delete')
+  Route
+    .get('/', 'PersonController.list')
+    .middleware(['UserAuth'])
+  
+  Route
+    .get('/:rut', 'PersonController.seek')
+    .middleware(['UserAuth'])
+  
+  Route
+    .post('/', 'PersonController.create')
+    .middleware(['UserAuth'])
+    .validator('CreatePerson')
+  
+  Route
+    .put('/:id','PersonController.update')
+    .middleware(['UserAuth'])
+    .validator('UpdatePerson')
+  
+  Route
+    .delete('/:id', 'PersonController.delete')
+    .middleware(['UserAuth'])
 
 }).prefix('people/')
 

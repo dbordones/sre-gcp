@@ -5,7 +5,7 @@ const { validate } = use('Validator')
 const Person = use('App/Models/Person')
 
 class PersonController {
-    async list({ response }) {
+    async list({ request, response }) {
         let People = await Person.all()
         return response.status(200).json(People)
     }

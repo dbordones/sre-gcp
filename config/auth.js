@@ -16,7 +16,7 @@ module.exports = {
   | Available Serializers - lucid, database
   |
   */
-  authenticator: 'jwt',
+  authenticator: 'api',
 
   /*
   |--------------------------------------------------------------------------
@@ -90,9 +90,9 @@ module.exports = {
     serializer: 'LucidMongo',
     scheme: 'api',
     model: 'App/Models/User',
-    token: 'App/Models/Token',
-    uid: 'username',
-    password: '',
-    expiry: '30d'
+    token: 'App/Models/User',
+    uid: 'apikey',
+    //password: '',
+    //expiry: '30d'
   }
 }

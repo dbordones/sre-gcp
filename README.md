@@ -1,23 +1,12 @@
-# Adonis API application
+# Programming Test SRE - GCP 
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+This is an AdonisJs API Rest and use a Mongo database 3.6 deployed as action on Google Cloud Platform in a Dokku (Docker) container.
 
 1. Bodyparser
 2. Authentication
 3. CORS
-4. Lucid ORM
+4. Lucid-mongo ORM
 5. Migrations and seeds
-
-## Setup
-
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick --api-only
-```
-
-or manually clone the repo and then run `npm install`.
-
 
 ### Migrations
 
