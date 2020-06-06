@@ -6,7 +6,7 @@ class UpdatePerson {
 
   get rules() {
     return {
-      rut: 'max:10',
+      rut: 'max:12',
       age: 'number'
     }
   }
