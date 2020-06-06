@@ -1,8 +1,8 @@
 'use strict'
 
-const { validate } = use('Validator')
-
 const Person = use('App/Models/Person')
+
+const { validate, clean, format } = require('rut.js')
 
 class PersonController {
     async list({ request, response }) {
@@ -52,7 +52,7 @@ class PersonController {
             PersonSeek = await Person.find(id)
 
         if (!PersonSeek){
-            return response.status(400).send()
+            return response.status(404).send()
         }
         else{
 
